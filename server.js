@@ -7,7 +7,7 @@ var static = require('node-static');
 var d = './build';
 var p = './bin';
 
-var env = d;
+var env = p;
 
 
 

@@ -1,9 +1,8 @@
 {
   "author": "Mike Fielden",
   "name": "ng-compass-boilerplate",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "homepage": "https://github.com/MikeFielden/ng-compass-boilerplate",
-  
   "bugs": "https://github.com/MikeFielden/ng-compass-boilerplate/issues",
   "repository": {
     "type": "git",
@@ -12,16 +11,15 @@
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-contrib-compass": "0.2.0",
-
-    "grunt-contrib-clean": "~0.4.1",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-jshint": "~0.5.2",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-watch": "~0.4.3",
-    "grunt-contrib-uglify": "~0.2.0",
-    "grunt-karma": "~0.4.4",
-    "grunt-ngmin": "0.0.2",
+    "grunt-contrib-clean": "^0.4.1",
+    "grunt-contrib-compass": "^0.2.0",
+    "grunt-contrib-concat": "^0.3.0",
+    "grunt-contrib-copy": "^0.4.1",
+    "grunt-contrib-jshint": "^0.5.4",
+    "grunt-contrib-uglify": "^0.2.7",
+    "grunt-contrib-watch": "^0.4.4",
+    "grunt-karma": "^0.4.6",
+    "grunt-ng-annotate": "0.9.11",
     "node-static": "~0.7.1"
   }
 }

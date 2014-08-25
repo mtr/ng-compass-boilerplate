@@ -13,7 +13,7 @@ module.exports = function ( grunt ) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-ngmin');
+  grunt.loadNpmTasks('grunt-ng-annotate');
 
   /**
    * The `build` directory contains our custom Grunt tasks for using karma
@@ -156,7 +156,7 @@ module.exports = function ( grunt ) {
     /**
      * Use ng-min to annotate the sources before minifying
      */
-    ngmin: {
+    ngAnnotate: {
       dist: {
         src: [ '<%= distdir %>/assets/<%= pkg.name %>.js' ],
         dest: '<%= distdir %>/assets/<%= pkg.name %>.annotated.js'
@@ -314,7 +314,7 @@ module.exports = function ( grunt ) {
         files: [ 
           '<%= src.js %>'
         ],
-        tasks: [ 'jshint:src', 'karma:unit:run', 'concat:dist', 'ngmin:dist', 'uglify:dist' ]
+        tasks: [ 'jshint:src', 'karma:unit:run', 'concat:dist', 'ngAnnotate:dist', 'uglify:dist' ]
       },
 
       /**
@@ -344,7 +344,7 @@ module.exports = function ( grunt ) {
           '<%= src.atpl %>', 
           '<%= src.ctpl %>'
         ],
-        tasks: [ 'html2js', 'concat:dist', 'ngmin:dist', 'uglify:dist' ]
+        tasks: [ 'html2js', 'concat:dist', 'ngAnnotate:dist', 'uglify:dist' ]
       },
 
       /**
@@ -394,7 +394,7 @@ module.exports = function ( grunt ) {
    * The default task is to build.
    */
   grunt.registerTask( 'default', [ 'build' ] );
-  grunt.registerTask( 'build', ['clean', 'html2js', 'jshint', 'karma:continuous', 'concat', 'ngmin:dist', 'uglify', 'compassCompile', 'index', 'copy'] );
+  grunt.registerTask( 'build', ['clean', 'html2js', 'jshint', 'karma:continuous', 'concat', 'ngAnnotate:dist', 'uglify', 'compassCompile', 'index', 'copy'] );
 
 
   /**

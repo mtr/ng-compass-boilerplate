@@ -19,7 +19,7 @@
     "grunt-contrib-uglify": "^0.2.7",
     "grunt-contrib-watch": "^0.4.4",
     "grunt-karma": "^0.4.6",
-    "grunt-ng-annotate": "0.9.11",
+    "grunt-ng-annotate": "0.3.2",
     "node-static": "~0.7.1"
   }
 }

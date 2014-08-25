@@ -15,7 +15,7 @@ Install compass
   ```
 
 ```sh
-$ git clone git@github.com:MikeFielden/ng-compass-boilerplate.git
+$ git clone git@github.com:mtr/ng-compass-boilerplate.git
 $ cd ng-compass-boilerplate
 $ sudo npm -g install grunt-cli karma bower
 $ npm install
@@ -142,7 +142,7 @@ from GitHub, or merge the branch into your existing repository. Assuming you're
 starting from scratch, simply clone this repository using git:
 
 ```sh
-$ git clone git@github.com:MikeFielden/ng-compass-boilerplate.git my-project-name
+$ git clone git@github.com:mtr/ng-compass-boilerplate.git my-project-name
 $ cd my-project-name
 ```
 

@@ -4,6 +4,6 @@
   "devDependencies": {
  		"sass-bootstrap": "3.2.0",
  		"angular-bootstrap": "0.11.0",
-    "angular-ui-utils": "latest"
+                "angular-ui-utils": "0.1.1"
   }
 }

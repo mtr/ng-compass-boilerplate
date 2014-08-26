@@ -85,8 +85,8 @@ module.exports = function ( grunt ) {
      */
     vendor: {
       js: [
-        'vendor/angular-bootstrap/ui-bootstrap-tpls.min.js',
-        'vendor/angular-ui-utils/modules/route/route.js'
+        'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
+        'vendor/angular-ui-utils/ui-utils.js'
       ]
     },
 

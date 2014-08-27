@@ -1,10 +1,14 @@
 *.sw*
 *~
+.idea/
+.sass-cache/
 dist/
 node_modules/
 vendor/angular/
 vendor/angular-bootstrap/
+vendor/angular-mocks/
+vendor/angular-route/
 vendor/angular-ui-utils/
+vendor/bootstrap-sass-official/
+vendor/font-awesome/
 vendor/jquery/
-vendor/sass-bootstrap/
-.sass-cache/

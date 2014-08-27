@@ -60,7 +60,7 @@ module.exports = function ( grunt ) {
      * build tasks. `js` is all project javascript, less tests. `atpl` contains
      * our reusable components' template HTML files, while `ctpl` contains the
      * same, but for our app's code. `html` is just our main HTML file and 
-     * `less` is our main stylesheet.
+     * `sass` is our main stylesheet.
      */
     src: {
       js: [ 'src/**/*.js', '!src/**/*.spec.js' ], 
@@ -85,8 +85,9 @@ module.exports = function ( grunt ) {
      */
     vendor: {
       js: [
-        'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
-        'vendor/angular-ui-utils/ui-utils.js'
+          'vendor/angular-bootstrap/ui-bootstrap-tpls.js',
+          'vendor/angular-ui-utils/ui-utils.js'
+          // 'vendor/bootstrap-sass-official/assets/javascripts/bootstrap.js'
       ]
     },
 
@@ -107,8 +108,20 @@ module.exports = function ( grunt ) {
             dest: '<%= distdir %>/assets/',
             cwd: 'src/assets',
             expand: true
+          },
+          { 
+            src: [ '**' ],
+            dest: '<%= distdir %>/assets/fonts',
+            cwd: 'vendor/bootstrap-sass-official/assets/fonts',
+            expand: true
+          },
+          { 
+            src: [ '**' ],
+            dest: '<%= distdir %>/assets/fonts/font-awesome',
+            cwd: 'vendor/font-awesome/fonts',
+            expand: true
           }
-       ]   
+       ]
       }
     },
 
@@ -182,6 +195,7 @@ module.exports = function ( grunt ) {
         options: {
           sassDir: 'src/sass',
           cssDir: '<%= distdir %>/assets/styles/',
+          fontsDir: 'assets/fonts/bootstrap/',
           environment: 'production',
           raw: "preferred_syntax = :scss\n"
         }
@@ -192,6 +206,7 @@ module.exports = function ( grunt ) {
           outputStyle: 'compact',
           sassDir: 'src/sass',
           cssDir: '<%= distdir %>/assets/styles/',
+          fontsDir: 'assets/fonts/bootstrap/',
           environment: 'development',
           raw: "preferred_syntax = :scss\n"
         }

@@ -9,20 +9,13 @@
  * project should be imported as the rest are just wasting space.
  */
 
-@import '../../vendor/sass-bootstrap/lib/_variables.scss';
-@import '../../vendor/sass-bootstrap/lib/_mixins.scss';
-@import '../../vendor/sass-bootstrap/lib/_reset.scss';
-@import '../../vendor/sass-bootstrap/lib/_utilities.scss';
-@import '../../vendor/sass-bootstrap/lib/_scaffolding.scss';
-@import '../../vendor/sass-bootstrap/lib/_type.scss';
-@import '../../vendor/sass-bootstrap/lib/_grid.scss';
-@import '../../vendor/sass-bootstrap/lib/_layouts.scss';
-@import '../../vendor/sass-bootstrap/lib/_navs.scss';
-@import '../../vendor/sass-bootstrap/lib/_navbar.scss';
-@import '../../vendor/sass-bootstrap/lib/_buttons.scss';
-@import '../../vendor/sass-bootstrap/lib/_button-groups.scss';
-@import '../../vendor/sass-bootstrap/lib/_dropdowns.scss';
+$icon-font-path: '';
 
+@import '../../vendor/bootstrap-sass-official/assets/stylesheets/_bootstrap-compass.scss';
+@import '../../vendor/bootstrap-sass-official/assets/stylesheets/bootstrap.scss';
+
+$fa-font-path: '/assets/fonts/font-awesome';
+@import '../../vendor/font-awesome/scss/font-awesome.scss';
 
 /**
  * This is our main variables file. It in turn imports the `variables` file from
@@ -40,7 +33,7 @@
   font-family: 'Roboto';
   font-style: normal;
   font-weight: 400;
-  src: local('Roboto Regular'), local('Roboto-Regular'), url(fonts/Roboto-Regular.woff) format('woff');
+  src: local('Roboto Regular'), local('Roboto-Regular'), url("/assets/fonts/Roboto-Regular.woff") format('woff');
 }
 
 /**

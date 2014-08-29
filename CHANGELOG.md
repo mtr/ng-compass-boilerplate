@@ -1,3 +1,12 @@
+<a name="0.3.3"></a>
+### 0.3.3 (2014-08-29)
+
+#### Features
+
+* Replaced LESS with Compass in the build process.
+* Upgraded to Bootstrap 3.2.1, Fontawesome 4.1.0, and Angular 1.2.23.
+* Merged with upstream https://github.com/ngbp/ngbp.
+
 # 0.3.2 (2014-04-15)
 
 ## Features

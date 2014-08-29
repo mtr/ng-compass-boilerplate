@@ -2,10 +2,10 @@
   "name": "ng-compass-boilerplate",
   "version": "0.3.3",
   "devDependencies": {
-    "bootstrap-sass-official": "3.2.0",
+    "bootstrap-sass-official": "~3.2.0+1",
     "angular-bootstrap": "0.11.0",
     "angular-ui-utils": "0.1.1",
-    "font-awesome": "4.1.0",
+    "font-awesome": "~4.2.0",
     "angular-route": "~1.2.23",
     "angular-mocks": "~1.2.23",
     "angular-ui-router": "~0.2.11",

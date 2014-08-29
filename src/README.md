@@ -14,12 +14,10 @@ src/
   |  |- app.spec.js
   |- assets/
   |  |- fonts/
-  |- components/
-  |  |- placeholders/
-  |  |- ui-bootstrap/
+  |- common/
+  |  |- plusOne/
   |- sass/
   |  |- main.scss
-  |  |- font-awesome.less
   |  |- variables.scss
   |- index.html
 ```
@@ -28,7 +26,7 @@ src/
   another application. [Read more &raquo;](app/README.md)
 - `src/assets/` - static files like fonts and images. 
   [Read more &raquo;](assets/README.md)
-- `src/components/` - third-party libraries or components likely to be reused in
+- `src/common/` - third-party libraries or components likely to be reused in
   another application. [Read more &raquo;](components/README.md)
 - `src/sass/` - SASS CSS files. [Read more &raquo;](sass/README.md)
 - `src/index.html` - this is the HTML document of the single-page application.
@@ -47,5 +45,5 @@ into which route templates are placed.
 Unlike any other HTML document (e.g. the templates), `index.html` is compiled as
 a Grunt template, so variables from `Gruntfile.js` and `package.json` can be
 referenced from within it. Changing `name` in `package.json` from
-"ng-boilerplate" will rename the resultant CSS and JavaScript placed in `dist/`,
+"ng-boilerplate" will rename the resultant CSS and JavaScript placed in `build/`,
 so this HTML references them by variable for convenience.

@@ -1,61 +1,122 @@
 <!DOCTYPE html>
 <html ng-app="ngBoilerplate" ng-controller="AppCtrl">
   <head>
-    <title>ng-compass-boilerplate</title>
+    <title ng-bind="pageTitle"></title>
 
-    <!-- your compiles CSS -->
-    <link rel="stylesheet" type="text/css" href="assets/styles/main.css"/>
+    <!-- social media tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@mtranang">
+    <meta name="twitter:title" content="ngCompassBoilerplate">
+    <meta name="twitter:description" content="Non-Trivial AngularJS and Compass Made Easy: Everything you need to kickstart AngularJS with Compass projects: a best-practice directory structure, an intelligent build system, and the best web design libraries around.">
+    <meta name="twitter:creator" content="@mtranang">
+    <meta name="twitter:image:src" content="https://a248.e.akamai.net/assets.github.com/images/modules/logos_page/Octocat.png?1366128846">
+    <meta property="og:title" content="ngCompassBoilerplate" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://bit.ly/ngCompassBoilerplate" />
+    <meta property="og:image" content="https://a248.e.akamai.net/assets.github.com/images/modules/logos_page/Octocat.png?1366128846" />
+    <meta property="og:description" content="Non-Trivial AngularJS and Compass Made Easy: Everything you need to kickstart AngularJS with Compass projects: a best-practice directory structure, an intelligent build system, and the best web design libraries around.">
 
-    <!-- libs.js contains all of the concatenated third-party libraries -->
-    <script type="text/javascript" src="assets/libs.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- this is your compiled, minified application code -->
-    <script type="text/javascript" src="assets/<%= grunt.config.get('pkg.name') %>.js"></script>
+    <!-- font awesome from BootstrapCDN -->
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet">
 
+    <!-- compiled CSS --><% styles.forEach( function ( file ) { %>
+    <link rel="stylesheet" type="text/css" href="<%= file %>" /><% }); %>
+
+    <!-- compiled JavaScript --><% scripts.forEach( function ( file ) { %>
+    <script type="text/javascript" src="<%= file %>"></script><% }); %>
+
+    <!-- it's stupid to have to load it here, but this is for the +1 button -->
+    <script type="text/javascript" src="https://apis.google.com/js/plusone.js">
+      { "parsetags": "explicit" }
+    </script>
   </head>
   <body>
     <div class="container">
-      <div class="masthead">
-        <h3 class="text-muted">ng-compass-boilerplate</h3>
-        <div class="navbar navbar-default" role="navigation">
-	  <div class="container-fluid">
-            <ul class="nav navbar-nav">
-                <li ui-route="/home" ng-class="{active:$uiRoute}">
-                  <a href="#/home"><span class="fa fa-home"></span> Home</a>
-                </li>
-                <li ui-route="/about" ng-class="{active:$uiRoute}">
-                  <a href="#/about"><span class="fa fa-info-circle"></span> What is it?</a>
-                </li>
-                <li>
-                  <a href="https://github.com/mtr/ng-compass-boilerplate#readme">
-                    <span class="fa fa-book"></span>
-                    Read the Docs
-                  </a>
-                </li>
-                <li>
-                  <a href="https://github.com/mtr/ng-compass-boilerplate">
-                    <span class="fa fa-github-alt"></span>
-                    Github
-                  </a>
-                </li>
-                <li>
-                  <a href="https://github.com/mtr/ng-compass-boilerplate">
-                    <span class="fa fa-comments"></span>
-                    Support
-                  </a>
-                </li>
-              </ul>
-	  </div>
+      <div class="navbar navbar-default">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" ng-init="menuCollapsed = true"
+            ng-click="menuCollapsed = ! menuCollapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <div class="navbar-brand">
+            ng-compass-boilerplate
+            <small>
+              <a href="http://github.com/mtr/ng-compass-boilerplate/blob/v<%= version %>-release/CHANGELOG.md">
+                v<%= version %>
+              </a>
+            </small>
+          </div>
+        </div>
+        <div class="collapse navbar-collapse" collapse="menuCollapsed">
+          <ul class="nav navbar-nav">
+            <li ui-sref-active="active">
+              <a href ui-sref="home">
+                <span class="fa fa-home"></span>
+                Home
+              </a>
+            </li>
+            <li ui-sref-active="active">
+              <a href ui-sref="about">
+                <span class="fa fa-info-circle"></span>
+                What is it?
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/mtr/ng-compass-boilerplate#readme">
+                <span class="fa fa-book"></span>
+                Read the Docs
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/mtr/ng-compass-boilerplate">
+                <span class="fa fa-github-alt"></span>
+                Github
+              </a>
+            </li>
+            <li>
+              <a href="https://github.com/mtr/ng-compass-boilerplate/issues">
+                <span class="fa fa-comments"></span>
+                Support
+              </a>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
 
-    <div class="container" ng-view></div>
+    <div class="container" ui-view="main"></div>
 
     <footer class="footer">
       <div class="container">
         <div class="footer-inner">
+          <ul class="social">
+            <li><a target="_blank" href="https://plus.google.com/+MartinThorsenRanang/"><span class="fa fa-google-plus-square"></span></a></li>
+            <li><a target="_blank" href="http://twitter.com/mtranang"><span
+                class="fa fa-twitter-square"></span></a></li>
+            <li><a target="_blank" href="http://linkedin.com/in/ranang"><span
+                class="fa fa-linkedin-square"></span></a></li>
+            <li><a target="_blank" href="http://github.com/mtr/ng-compass-boilerplate"><span class="fa fa-github-square"></span></a></li>
+          </ul>
           
+
+          <p>
+            (c) 2014 <a href="http://ranang.org">Martin Thorsen Ranang</a>.
+            <a href="http://github.com/mtr/ng-compass-boilerplate/fork_select">Fork this</a>
+            to kickstart your next project.
+            <br />
+            ng-compass-boilerplate is based on
+            <a href="http://www.angularjs.org">AngularJS</a>,
+            <a href="http://getbootstrap.com">Bootstrap</a>,
+            <a href="http://compass-style.org/">Compass</a>,
+            <a href="http://angular-ui.github.com/bootstrap">UI Bootstrap</a>,
+            and 
+            <a href="http://fortawesome.github.com/Font-Awesome">Font Awesome</a>.        
+          </p>
         </div>
       </div>
     </footer>

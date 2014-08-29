@@ -2,12 +2,15 @@
 *~
 .idea/
 .sass-cache/
+build/
 dist/
 node_modules/
 vendor/angular/
 vendor/angular-bootstrap/
 vendor/angular-mocks/
+vendor/angular-placeholders/
 vendor/angular-route/
+vendor/angular-ui-router/
 vendor/angular-ui-utils/
 vendor/bootstrap-sass-official/
 vendor/font-awesome/

@@ -91,6 +91,9 @@ ng-boilerplate/
   |  |- angular-bootstrap/
   |  |- bootstrap/
   |  |- placeholders/
+  |- .bowerrc
+  |- bower.json
+  |- build.config.js
   |- Gruntfile.js
   |- module.prefix
   |- module.suffix
@@ -135,7 +138,7 @@ $ npm -g install grunt-cli karma bower
 ```
 
 If you're on Linux (like I am) then throw `sudo` in front of that command.  If
-you're on Windows, you're on your own.
+you're on Windows, then you're on your own.
 
 Next, you can either clone this repository using Git, download it as a zip file
 from GitHub, or merge the branch into your existing repository. Assuming you're
@@ -168,7 +171,7 @@ In the future, should you want to add a new Bower package to your app, run the
 `install` command:
 
 ```sh
-$ bower install package-name --save-dev
+$ bower install packagename --save-dev
 ```
 
 The `--save-dev` flag tells Bower to add the package at its current version to
@@ -190,25 +193,39 @@ To ensure your setup works, launch grunt:
 $ grunt watch
 ```
 
-The built files are placed in the `dist/` directory.  Open the `dist/index.html`
-file in your browser. Because everything is compiled, no XHR requests are needed
-to retrieve templates, so until this needs to communicate with your backend,
-there is no need to run it from a web server.
+The built files are placed in the `build/` directory by default. Open the
+`build/index.html` file in your browser and check it out! Because everything is
+compiled, no XHR requests are needed to retrieve templates, so until this needs
+to communicate with your backend there is no need to run it from a web server.
 
-`watch` is actually an alias of the `grunt-contrib-watch` that will first run
-the entire build before watching for file changes. With this setup, any file
-that changes will trigger only those build tasks necessary to bring the app up
-to date. For example, when a template file changes, the templates are recompiled
-and concatenated with the rest of the JavaScript files, but when a test/spec
-file changes, only the tests are run. This allows the watch command to complete
-in a fraction of the time it would ordinarily take.
+`watch` is actually an alias of the `grunt-contrib-watch` that will first run a
+partial build before watching for file changes. With this setup, any file that
+changes will trigger only those build tasks necessary to bring the app up to
+date. For example, when a template file changes, the templates are recompiled
+and concatenated, but when a test/spec file changes, only the tests are run.
+This allows the watch command to complete in a fraction of the time it would
+ordinarily take.
 
 In addition, if you're running a Live Reload plugin in your browser (see below),
 you won't even have to refresh to see the changes! When the `watch` task detects
 a file change, it will reload the page for you. Sweet.
 
-However, a complete build is always available by simply running the default
-task:
+When you're ready to push your app into production, just run the `compile`
+command:
+
+```sh
+$ grunt compile
+```
+
+This will concatenate and minify your sources and place them by default into the
+`bin/` directory. There will only be three files: `index.html`,
+`your-app-name.js`, and `your-app-name.css`. All of the vendor dependencies like
+Bootstrap styles and AngularJS itself have been added to them for super-easy
+deploying. If you use any assets (`src/assets/`) then they will be copied to
+`bin/` as is.
+
+Lastly, a complete build is always available by simply running the default
+task, which runs `build` and then `compile`:
 
 ```sh
 $ grunt
@@ -218,46 +235,82 @@ $ grunt
 
 The best way to learn about the build system is by familiarizing yourself with
 Grunt and then reading through the heavily documented build script,
-`Gruntfile.js`. But what follows in this section is a quick introduction to the
-tasks provided.
+`Gruntfile.js`. But you don't need to do that to be very productive with
+`ngBoilerplate`. What follows in this section is a quick introduction to the
+tasks provided and should be plenty to get you started.
 
 The driver of the process is the `delta` multi-task, which watches for file
-changes using `grunt-contrib-watch` and executes one of seven tasks when a file
+changes using `grunt-contrib-watch` and executes one of nine tasks when a file
 changes:
 
 * `delta:gruntfile` - When `Gruntfile.js` changes, this task runs the linter
-  (`jshint`) on that one file.
+  (`jshint`) on that one file and reloads the configuration.
 * `delta:assets` - When any file within `src/assets/` changes, all asset files
-  are copied to `dist/assets/`.
-* `delta:html` - When `src/index.html`, it is compiled as a Grunt template, so
-  script names, etc., are dynamically replaced with the correct values from
-  `package.json`.
-* `delta:sass` - When any `*.scss` file within `src/` changes, the
-  `src/sass/main.scss` file is linted, compiled, and compressed into
-  `dist/assets/ng-boilerplate.css`.
-* `delta:src` - When any JavaScript file within `src/` that does not end in
+  are copied to `build/assets/`.
+* `delta:html` - When `src/index.html` changes, it is compiled as a Grunt
+  template, so script names, etc., are dynamically replaced with the correct
+  values configured dynamically by Grunt.
+* `delta:less` - When any `*.less` file within `src/` changes, the
+  `src/less/main.less` file is linted and copied into
+  `build/assets/ng-boilerplate.css`.
+* `delta:jssrc` - When any JavaScript file within `src/` that does not end in
   `.spec.js` changes, all JavaScript sources are linted, all unit tests are run,
-  and the previously-compiled templates are concatenated with them to form the
-  final JavaScript source file (`dist/assets/ng-boilerplate.js`).
+  and the all source files are re-copied to `build/src`.
+* `delta:coffeesrc` - When any `*.coffee` file in `src/` that doesn't match
+  `*.spec.coffee` changes, the Coffee scripts are compiled independently into
+  `build/src` in a structure mirroring where they were in `src/` so it's easy to
+  locate problems. For example, the file
+  `src/common/titleService/titleService.coffee` is compiled to
+  `build/src/common/titleService/titleService.js`.
 * `delta:tpls` - When any `*.tpl.html` file within `src/` changes, all templates
   are put into strings in a JavaScript file (technically two, one for
-  `src/components/` and another for `src/app/`) that will add the template to
+  `src/common/` and another for `src/app/`) that will add the template to
   AngularJS's
   [`$templateCache`](http://docs.angularjs.org/api/ng.$templateCache) so
   template files are part of the initial JavaScript payload and do not require
-  any future XHR.  The template cache files are then concatenated with the rest
-  of the scripts into the final JavaScript source file
-  (`dist/assets/ng-boilerplate.js`).
-* `delta:unittest` - When any `*.spec.js` file in `src/` changes, the test files
+  any future XHR.  The template cache files are `build/template-app.js` and
+  `build/template-common.js`.
+* `delta:jsunit` - When any `*.spec.js` file in `src/` changes, the test files
   are linted and the unit tests are executed.
+* `delta:coffeeunit` - When any `*.spec.coffee` file in `src/` changes, the test
+  files are linted, compiled their tests executed.
 
 As covered in the previous section, `grunt watch` will execute a full build
 up-front and then run any of the aforementioned `delta:*` tasks as needed to
-ensure the fastest possible build.
+ensure the fastest possible build. So whenever you're working on your project,
+start with:
+
+```sh
+$ grunt watch
+```
+
+And everything will be done automatically!
+
+### Build vs. Compile
+
+To make the build even faster, tasks are placed into two categories: build and
+compile. The build tasks (like those we've been discussing) are the minimal
+tasks required to run your app during development.
+
+Compile tasks, however, get your app ready for production. The compile tasks
+include concatenation, minification, compression, etc. These tasks take a little
+bit longer to run and are not at all necessary for development so are not called
+automatically during build or watch.
+
+To initiate a full compile, you simply run the default task:
+
+```sh
+$ grunt
+```
+
+This will perform a build and then a compile. The compiled site - ready for
+uploading to the server! - is located in `bin/`, taking a cue from
+traditional software development. To test that your full site works as
+expected, open the `bin/index.html` file in your browser. Voila!
 
 ### Live Reload!
 
-`ngCompassBoilerplate` now includes [Live Reload](http://livereload.com/), so you no
+`ngBoilerplate` also includes [Live Reload](http://livereload.com/), so you no
 longer have to refresh your page after making changes! You need a Live Reload
 browser plugin for this:
 
@@ -274,8 +327,48 @@ When you load your page, click the Live Reload icon in your toolbar and
 everything should work magically. w00t!
 
 If you'd prefer to not install a browser extension, then you must add the
-following to the end of your `body` tag in `index.html`:
+following to the end of the `body` tag in `index.html`:
 
 ```html
 <script src="http://localhost:35729/livereload.js"></script>
 ```
+
+Boom!
+
+## Roadmap
+
+This is a project that is not broad in scope, so there's not really much of a
+wish list here. But I would like to see a couple of things:
+
+I'd like it to be a little simpler. I want this to be a universal starting
+point. If someone is starting a new AngularJS project, she should be able to
+clone, merge, or download its source and immediately start doing what she needs
+without renaming a bunch of files and methods or deleting spare parts. What I
+have works for a first release, but I just think there is a little too much here
+right now.
+
+I'd also like to see a simple generator. Nothing like Yeoman, as there already
+is one of those, but just something that allows the user to say "I want
+Bootstrap but not Font Awesome and my app is called 'coolApp'. Gimme." Perhaps a
+custom download builder like UI Bootstrap has. Like that. Then again, perhaps
+some Yeoman generators wouldn't be out of line. I don't know. What do you think?
+
+Naturally, I am open to all manner of ideas and suggestions. See the
+"Contributing" section below.
+
+### To Do
+
+See the [issues list](http://github.com/joshdmiller/ng-boilerplate/issues). And
+feel free to submit your own!
+
+### Contributing
+
+This is an opinionated kickstarter, but the opinions are fluid and
+evidence-based. Don't like the way I did something? Think you know of a better
+way? Have an idea to make this more useful? Let me know! You can contact me
+through all the usual channels or you can open an issue on the GitHub page. If
+you're feeling ambitious, you can even submit a pull request - how thoughtful
+of you!
+
+So join the team! We're good people.
+

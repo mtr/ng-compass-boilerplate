@@ -23,6 +23,7 @@ subdirectories for "create", "view", "search", etc. The "view" submodule may
 then define a route of `/products/:id`, ad infinitum.
 
 As `ngCompassBoilerplate` is quite minimal, take a look at the two provided submodules
+As `ngBoilerplate` is quite minimal, take a look at the two provided submodules
 to gain a better understanding of how these are used as well as to get a
 glimpse of how powerful this simple construct can be.
 
@@ -37,16 +38,18 @@ require their own submodules.
 As a matter of course, we also require the template modules that are generated
 during the build.
 
-However, the modules from `src/components` should be required by the app
+However, the modules from `src/common` should be required by the app
 submodules that need them to ensure proper dependency handling. These are
 app-wide dependencies that are required to assemble your app.
 
 ```js
-angular.module( 'ngCompassBoilerplate', [
-  'app-templates',
-  'component-templates',
-  'ngCompassBoilerplate.home',
-  'ngCompassBoilerplate.about'
+angular.module( 'ngBoilerplate', [
+  'templates-app',
+  'templates-common',
+  'ngBoilerplate.home',
+  'ngBoilerplate.about'
+  'ui.router',
+  'ui.route'
 ])
 ```
 
@@ -58,29 +61,30 @@ is where we want to start, which has a defined route for `/home` in
 `src/app/home/home.js`.
 
 ```js
-.config( function ngCompassBoilerplateConfig ( $routeProvider ) {
-  $routeProvider.otherwise({ redirectTo: '/home' });
+.config( function myAppConfig ( $stateProvider, $urlRouterProvider ) {
+  $urlRouterProvider.otherwise( '/home' );
 })
 ```
 
-One of the components included by default is a basic `titleService` that simply
-allows you to set the page title from any of your controllers. The service accepts
-an optional suffix to be appended to the end of any title set later on, so we set
-this now to ensure it runs before our controllers set titles.
+Use the main applications run method to execute any code after services
+have been instantiated.
 
 ```js
-.run([ 'titleService', function run ( titleService ) {
-  titleService.setSuffix( ' | ngCompassBoilerplate' );
-}])
+.run( function run () {
+})
 ```
 
-And then we define our main application controller. It need not have any logic, 
-but this is a good place for logic not specific to the template or route, such as
-menu logic or page title wiring.
+And then we define our main application controller. This is a good place for logic
+not specific to the template or route, such as menu logic or page title wiring.
 
 ```js
-.controller( 'AppCtrl', [ '$scope', function AppCtrl ( $scope ) {
-}])
+.controller( 'AppCtrl', function AppCtrl ( $scope, $location ) {
+  $scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams){
+    if ( angular.isDefined( toState.data.pageTitle ) ) {
+      $scope.pageTitle = toState.data.pageTitle + ' | ngBoilerplate' ;
+    }
+  });
+})
 ```
 
 ### Testing

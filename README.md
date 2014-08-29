@@ -23,6 +23,15 @@ $ bower install
 $ grunt watch
 ```
 
+Note: a temporary workaround is needed for the app to work with angular-placeholders, if not the tests will break.
+```sh
+$ cd vendor/angular-placeholders/
+$ npm install
+$ grunt
+$ cd -
+```
+This workaround must be performed before the grunt is run in the main directory.
+
 ## Purpose
 
 `ngCompassBoilerplate` is designed to make life easy by providing a basic framework

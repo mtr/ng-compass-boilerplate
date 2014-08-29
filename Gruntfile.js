@@ -69,13 +69,13 @@ module.exports = function (grunt) {
                     "package.json",
                     "bower.json"
                 ],
-                commit: false,
+                commit: true,
                 commitMessage: 'chore(release): v%VERSION%',
                 commitFiles: [
                     "package.json",
-                    "client/bower.json"
+                    "bower.json"
                 ],
-                createTag: false,
+                createTag: true,
                 tagName: 'v%VERSION%',
                 tagMessage: 'Version %VERSION%',
                 push: false,
@@ -104,6 +104,17 @@ module.exports = function (grunt) {
                         dest: '<%= build_dir %>/assets/',
                         cwd: 'src/assets',
                         expand: true
+                    }
+                ]
+            },
+            build_vendor_font_assets: {
+                files: [
+                    {
+                        src: [ '<%= vendor_files.font_assets %>' ],
+                        dest: '<%= build_dir %>/assets/fonts/',
+                        cwd: '.',
+                        expand: true,
+                        flatten: true
                     }
                 ]
             },
@@ -268,7 +279,6 @@ module.exports = function (grunt) {
                 options: {
                     sassDir: '<%= app_files.sass %>',
                     cssDir: '<%= build_dir %>/assets/', //<%= pkg.name %>-<%= pkg.version %>.css',
-//                    fontsDir: 'assets/fonts/bootstrap/',
                     environment: 'development',
                     raw: "preferred_syntax = :scss\n"
                 }
@@ -277,7 +287,6 @@ module.exports = function (grunt) {
                 options: {
                     sassDir: '<%= app_files.sass %>',
                     cssDir: '<%= build_dir %>/assets/', //<%= pkg.name %>-<%= pkg.version %>.css',
-//                    fontsDir: 'assets/fonts/bootstrap/',
                     environment: 'production',
                     raw: "preferred_syntax = :scss\n"
                 }
@@ -582,7 +591,8 @@ module.exports = function (grunt) {
      */
     grunt.registerTask('build', [
         'clean', 'html2js', 'jshint', 'coffeelint', 'coffee', 'compass:build',
-        'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_assets',
+        'concat:build_css', 'copy:build_app_assets', 'copy:build_vendor_font_assets',
+        'copy:build_vendor_assets',
         'copy:build_appjs', 'copy:build_vendorjs', 'index:build', 'karmaconfig',
         'karma:continuous'
     ]);

@@ -73,6 +73,17 @@ module.exports = {
     css: [
     ],
     assets: [
+    ],
+    font_assets: [
+        'vendor/bootstrap-sass-official/assets/fonts/bootstrap/glyphicons-halflings-regular.eot',
+        'vendor/bootstrap-sass-official/assets/fonts/bootstrap/glyphicons-halflings-regular.svg',
+        'vendor/bootstrap-sass-official/assets/fonts/bootstrap/glyphicons-halflings-regular.ttf',
+        'vendor/bootstrap-sass-official/assets/fonts/bootstrap/glyphicons-halflings-regular.woff',
+        'vendor/font-awesome/fonts/FontAwesome.otf',
+        'vendor/font-awesome/fonts/fontawesome-webfont.eot',
+        'vendor/font-awesome/fonts/fontawesome-webfont.svg',
+        'vendor/font-awesome/fonts/fontawesome-webfont.ttf',
+        'vendor/font-awesome/fonts/fontawesome-webfont.woff'
     ]
   }
 };

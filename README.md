@@ -92,10 +92,11 @@ ng-boilerplate/
   |  |  |- <app logic>
   |  |- assets/
   |  |  |- <static files>
-  |  |- components/
-  |  |  |- <reusable code & external libs>
+  |  |- commmon/
+  |  |  |- <reusable code>
   |  |- sass/
   |  |  |- main.scss
+  |  |  |- variables.scss
   |- vendor/
   |  |- angular-bootstrap/
   |  |- bootstrap/
